@@ -1,8 +1,9 @@
-import { request, gql } from "graphql-request";
+import { request } from "graphql-request";
+import { graphql } from "./gql";
 
 const endpoint = `https://services.dappio.xyz/graphql`;
 
-const query = gql`
+const query = graphql(/* GraphQL */ `
   query Task($symbol: String!) {
     TokenInfos(symbol: $symbol) {
       timestamp
@@ -16,22 +17,10 @@ const query = gql`
       logoURI
     }
   }
-`;
+`);
 
 const variables = {
   symbol: "ETH",
 };
 
-request<{
-  TokenInfos: {
-    timestamp: string;
-    price: string;
-    protocol: string;
-    chainId: string;
-    mint: string;
-    name: string;
-    decimals: string;
-    symbol: string;
-    logoURI: string;
-  };
-}>(endpoint, query, variables).then(({ TokenInfos }) => console.log(TokenInfos));
+request(endpoint, query, variables).then(({ TokenInfos }) => console.log(TokenInfos));
