@@ -5,9 +5,8 @@ const config: CodegenConfig = {
   documents: ["src/**/*.ts"],
   schema: "https://services.dappio.xyz/graphql",
   generates: {
-    "./src/gql/": {
-      preset: "client",
-      plugins: [],
+    "./src/generated.ts": {
+      plugins: ["typescript", "typescript-operations", "typescript-graphql-request"],
     },
   },
 };
